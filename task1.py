@@ -1,15 +1,12 @@
 """
-This is Fake Flask App.
-Simulation is designed to practice basic flask skills.
-
-All new ednpoins to be added in `API Endpoints` section
+This is Flask App simulation. 
+New ednpoins to be added in `API Endpoints` section
 ========================================================
-How to use? 
-Copy this module content and execute in one of the below online compilers:
+Prerequisits: 
+Sopy this module content and execute in one of the below online compilers:
+
 
 https://www.programiz.com/python-programming/online-compiler/
-https://pycompile.com/
-https://www.online-python.com/
 
 ========================================================
 Task1
@@ -59,6 +56,7 @@ Acceptance criteria:
     }
     ```
     instead of: `{"error": "404 Not Found", "path": "/api/data", "method": "PUT"}`
+
 """
 
 import json
@@ -155,7 +153,29 @@ def get_data(req):
 @endpoint("/api/echo", methods=['POST'])
 def post_echo(req):
     return Response(200, {"echo": req.body})
-             
+
+                          
+@endpoint("/api/data", methods=['POST'])
+def post_data(req):
+    try:
+        data_obj = DataOrmObj(**req.body)
+        result = db.add(data_obj)
+        return Response(200, {"msg": "Success", "data": result.to_dict()})
+    except Exception as e:
+        return Response(400, {"error": str(e)})
+
+                          
+@endpoint("/api/data", methods=['PUT'])
+def put_data(req):
+    try:
+        obj_id = req.body.get("id")
+        if not obj_id:
+            return Response(400, {"error": "Missing 'id'"})
+        updated = db.update(obj_id, req.body)
+        return Response(200, {"msg": "Updated", "data": updated.to_dict()})
+    except Exception as e:
+        return Response(400, {"error": str(e)})                          
+
 
 # === TEST ===
 simulate_request("POST", "/api/data", {"name": "X", "value": 42})
@@ -165,3 +185,4 @@ simulate_request("PUT", "/api/data", {"id": 999, "value": 100})
 simulate_request("GET", "/api/data")
 simulate_request("POST", "/api/echo", {"msg": "Hello!"})
 simulate_request("DELETE", "/api/data")
+                    
