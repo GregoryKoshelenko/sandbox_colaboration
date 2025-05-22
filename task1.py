@@ -1,8 +1,5 @@
 """
 This is Fake Flask App.
-Simulation is designed to practice basic flask skills.
-
-All new ednpoins to be added in `API Endpoints` section
 ========================================================
 How to use? 
 Copy this module content and execute in one of the below online compilers:
@@ -10,55 +7,9 @@ Copy this module content and execute in one of the below online compilers:
 https://www.programiz.com/python-programming/online-compiler/
 https://pycompile.com/
 https://www.online-python.com/
-
-========================================================
-Task1
-
-Create new endpoint `/api/data` to insert new data item. 
-Expected request body: {"id": 1, "value": 100}
-In order to insert data item to database use DataOrmObj and db.add method 
-Extra: Add exceptuion handling. 
-
-Acceptance criteria:
-    Run this script. The following response should appear in terminal
-    ```
-    {
-      "status": 200,
-      "data": {
-        "msg": "Success",
-        "data": {
-          "id": 1,
-          "name": "X",
-          "value": 42
-        }
-      }
-    }
-    ```
-    instead of: `{"error": "404 Not Found", "path": "/api/data", "method": "POST"}`
-    
 =========================================================
-Task 2
-
-Implement endpoint `/api/data` to update data item record in db. 
-Expected request body: {"id": 1, "value": 100}
-Use db.update method and with arguments obj_id, data
-
-Acceptance criteria:
-    Run this script. The following response should appear in terminal
-    ```
-    {
-      "status": 200,
-      "data": {
-        "msg": "Updated",
-        "data": {
-          "id": 1,
-          "name": "X",
-          "value": 100
-        }
-      }
-    }
-    ```
-    instead of: `{"error": "404 Not Found", "path": "/api/data", "method": "PUT"}`
+All new ednpoins to be added in `=== API Endpoints ===` section
+To solve tasks go to `=== TASKS ===` section
 """
 
 import json
@@ -155,7 +106,65 @@ def get_data(req):
 @endpoint("/api/echo", methods=['POST'])
 def post_echo(req):
     return Response(200, {"echo": req.body})
-             
+
+# === TASKS ===    
+"""
+========================================================
+Task 1
+
+Create new endpoint `/api/data` to insert new data item. 
+Expected request body: {"id": 1, "value": 100}
+In order to insert data item to database use DataOrmObj and db.add method 
+Extra: Add exceptuion handling. 
+
+Acceptance criteria:
+    Run this script. The following response should appear in terminal
+    ```
+    {
+      "status": 200,
+      "data": {
+        "msg": "Success",
+        "data": {
+          "id": 1,
+          "name": "X",
+          "value": 42
+        }
+      }
+    }
+    ```
+    instead of: `{"error": "404 Not Found", "path": "/api/data", "method": "POST"}`
+"""
+#Solution goes here:
+#@endpoint...
+
+"""
+=========================================================
+Task 2
+
+Implement endpoint `/api/data` to update data item record in db. 
+Expected request body: {"id": 1, "value": 100}
+Use db.update method and with arguments obj_id, data
+
+Acceptance criteria:
+    Run this script. The following response should appear in terminal
+    ```
+    {
+      "status": 200,
+      "data": {
+        "msg": "Updated",
+        "data": {
+          "id": 1,
+          "name": "X",
+          "value": 100
+        }
+      }
+    }
+    ```
+    instead of: `{"error": "404 Not Found", "path": "/api/data", "method": "PUT"}`
+"""
+#Solution goes here:
+#@endpoint...
+
 
 # === TEST ===
 simulate_request("POST", "/api/data", {"name": "X", "value": 42})
